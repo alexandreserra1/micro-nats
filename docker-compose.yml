@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  nats:
+    image: nats:latest
+    ports:
+      - "4222:4222"
+
+  service1_generator:
+    build: ./service1_generator
+    depends_on:
+      - nats
+
+  service2_prime_checker:
+    build: ./service2_prime_checker
+    depends_on:
+      - nats
+
+  service3_palindrome_checker:
+    build: ./service3_palindrome_checker
+    depends_on:
+      - nats
+
+  client_service:
+    build: ./client_service
+    depends_on:
+      - nats
